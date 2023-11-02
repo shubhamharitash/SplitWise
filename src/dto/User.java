@@ -21,19 +21,8 @@ public class User {
 
     Map<String,Expense> lendToMap;
 
-    public User(String name, Map<String, Expense> lendToMap, Map<String, Expense> owesToMap) {
+    public User(String name, Map<String, Expense> lendToMap) {
         this.name = name;
         this.lendToMap = lendToMap;
-        this.owesToMap = owesToMap;
     }
-
-    public Map<String, Expense> getOwesToMap() {
-        return owesToMap;
-    }
-
-    public void setOwesToMap(Map<String, Expense> owesToMap) {
-        this.owesToMap = owesToMap;
-    }
-
-    Map<String,Expense> owesToMap;
 }

@@ -59,13 +59,14 @@ public class SplitwiseService {
         }
         int BalanceFlag =0;
         for (User user:userList) {
-            for (String owesTo: user.getOwesToMap().keySet()) {
-                BalanceFlag =1;
-              outputUtil.appendToOutputList(OutputUtil.generateOutput(owesTo, user.getName(), user.getOwesToMap().get(owesTo).getAmount()));
-            }
             for (String lendTo: user.getLendToMap().keySet()) {
                 BalanceFlag =1;
-                outputUtil.appendToOutputList(OutputUtil.generateOutput(user.getName(),lendTo,user.getLendToMap().get(lendTo).getAmount()));
+                double lendAmount=user.getLendToMap().get(lendTo).getAmount();
+                if (lendAmount>0)
+                outputUtil.appendToOutputList(OutputUtil.generateOutput(user.getName(),lendTo,lendAmount));
+                else
+                    if (lendAmount<0)
+                    outputUtil.appendToOutputList(OutputUtil.generateOutput(lendTo,user.getName(),-lendAmount));
             }
         }
         outputUtil.printOutput();
@@ -81,13 +82,14 @@ public class SplitwiseService {
         User user=UserRepository.getStringUserMap().get(user_id);
         int BalanceFlag =0;
 
-        for (String owesTo: user.getOwesToMap().keySet()) {
-            BalanceFlag =1;
-          outputUtil.appendToOutputList(OutputUtil.generateOutput(owesTo, user.getName(), user.getOwesToMap().get(owesTo).getAmount()));
-        }
         for (String lendTo: user.getLendToMap().keySet()) {
             BalanceFlag =1;
-            outputUtil.appendToOutputList(OutputUtil.generateOutput(user.getName(),lendTo,user.getLendToMap().get(lendTo).getAmount()));
+            double lendAmount=user.getLendToMap().get(lendTo).getAmount();
+            if (lendAmount>0)
+                outputUtil.appendToOutputList(OutputUtil.generateOutput(user.getName(),lendTo,lendAmount));
+            else
+            if (lendAmount<0)
+                outputUtil.appendToOutputList(OutputUtil.generateOutput(lendTo,user.getName(),-lendAmount));
         }
         outputUtil.printOutput();
         if (BalanceFlag ==0)
