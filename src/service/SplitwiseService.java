@@ -2,6 +2,8 @@ package service;
 
 import contants.Errors;
 import enums.ExpenseType;
+import util.FileWriterUtil;
+import util.ShowUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,12 +43,14 @@ public class SplitwiseService {
     }
 
     public void show(String[] inp){
-        ShowService showService=new ShowService();
+        ShowUtil showUtil=new ShowUtil();
+        ShowService showService=new ShowService(showUtil);
         if (inp.length==1){
             showService.showAllBalance();
         }else {
             showService.showUserBalance(inp[1]);
         }
+        FileWriterUtil.writeOutputToFile(showUtil.getShowList());
     }
 
 }

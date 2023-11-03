@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ShowService {
     ShowUtil showUtil;
-    public ShowService() {
-        showUtil =new ShowUtil();
+    public ShowService(ShowUtil showUtil) {
+        this.showUtil =showUtil;
     }
 
     void showAllBalance(){

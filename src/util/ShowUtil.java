@@ -1,7 +1,13 @@
 package util;
 
+import contants.ShowConstants;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ShowUtil {
@@ -12,6 +18,11 @@ public class ShowUtil {
             return "";
        return ower+" owes "+lender+": "+Double.parseDouble(decfor.format(amount));
     }
+
+    public List<String> getShowList() {
+        return showList;
+    }
+
     public  void appendToShowList(String output){
         if (!showList.contains(output) && !output.equals(""))
         showList.add(output);
@@ -19,4 +30,5 @@ public class ShowUtil {
     public void printOutput(){
         showList.stream().forEach(System.out::println);
     }
+
 }
