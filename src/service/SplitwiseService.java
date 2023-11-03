@@ -47,8 +47,10 @@ public class SplitwiseService {
         ShowService showService=new ShowService(showUtil);
         if (inp.length==1){
             showService.showAllBalance();
+            showUtil.appendToShowList("-----------");
         }else {
             showService.showUserBalance(inp[1]);
+            showUtil.appendToShowList("-----------");
         }
         FileWriterUtil.writeOutputToFile(showUtil.getShowList());
     }
