@@ -18,6 +18,7 @@ public class ShowService {
         List<User> userList= UserRepository.getUserList();
         if (userList.isEmpty()) {
             System.out.println(Errors.NO_BALANCE);
+            showUtil.appendToShowList(Errors.NO_BALANCE);
             return;
         }
         int BalanceFlag =0;
@@ -39,6 +40,7 @@ public class ShowService {
       void showUserBalance(String user_id){
         if (!UserRepository.getStringUserMap().containsKey(user_id)){
             System.out.println(Errors.NO_BALANCE);
+            showUtil.appendToShowList(Errors.NO_BALANCE);
             return;
         }
         User user=UserRepository.getStringUserMap().get(user_id);
@@ -54,7 +56,9 @@ public class ShowService {
                 showUtil.appendToShowList(ShowUtil.generateOutput(lendTo,user.getName(),-lendAmount));
         }
         showUtil.printOutput();
-        if (BalanceFlag ==0)
+        if (BalanceFlag ==0) {
             System.out.println(Errors.NO_BALANCE);
+            showUtil.appendToShowList(Errors.NO_BALANCE);
+        }
     }
 }
