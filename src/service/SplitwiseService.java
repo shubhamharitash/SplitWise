@@ -1,10 +1,7 @@
 package service;
 
 import contants.Errors;
-import dto.User;
 import enums.ExpenseType;
-import repository.UserRepository;
-import util.OutputUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,55 +41,12 @@ public class SplitwiseService {
     }
 
     public void show(String[] inp){
+        ShowService showService=new ShowService();
         if (inp.length==1){
-            showAllBalance();
+            showService.showAllBalance();
         }else {
-            showBalance(inp[1]);
+            showService.showUserBalance(inp[1]);
         }
     }
-    private void showAllBalance(){
-        OutputUtil outputUtil=new OutputUtil();
-        List<User> userList=UserRepository.getUserList();
-        if (userList.isEmpty()) {
-            System.out.println(Errors.NO_BALANCE);
-            return;
-        }
-        int BalanceFlag =0;
-        for (User user:userList) {
-            for (String lendTo: user.getLendToMap().keySet()) {
-                BalanceFlag =1;
-                double lendAmount=user.getLendToMap().get(lendTo).getAmount();
-                if (lendAmount>0)
-                outputUtil.appendToOutputList(OutputUtil.generateOutput(user.getName(),lendTo,lendAmount));
-                else
-                    if (lendAmount<0)
-                    outputUtil.appendToOutputList(OutputUtil.generateOutput(lendTo,user.getName(),-lendAmount));
-            }
-        }
-        outputUtil.printOutput();
-        if (BalanceFlag ==0)
-            System.out.println(Errors.NO_BALANCE);
-    }
-    private  void showBalance(String user_id){
-        OutputUtil outputUtil=new OutputUtil();
-        if (!UserRepository.getStringUserMap().containsKey(user_id)){
-            System.out.println(Errors.NO_BALANCE);
-            return;
-        }
-        User user=UserRepository.getStringUserMap().get(user_id);
-        int BalanceFlag =0;
 
-        for (String lendTo: user.getLendToMap().keySet()) {
-            BalanceFlag =1;
-            double lendAmount=user.getLendToMap().get(lendTo).getAmount();
-            if (lendAmount>0)
-                outputUtil.appendToOutputList(OutputUtil.generateOutput(user.getName(),lendTo,lendAmount));
-            else
-            if (lendAmount<0)
-                outputUtil.appendToOutputList(OutputUtil.generateOutput(lendTo,user.getName(),-lendAmount));
-        }
-        outputUtil.printOutput();
-        if (BalanceFlag ==0)
-            System.out.println(Errors.NO_BALANCE);
-    }
 }
